@@ -8,10 +8,11 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, bsuma, bresta, bmult, bdiv, bclear, big;
-    double op1 =-1.0, op2 = -1.0;
-    TextView resultat;
-    boolean suma, resta, mult, div = false;
+    Button b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, bsuma, bresta, bmult, bdiv, bclear, big, btan, bsin, bcos;
+    Double[] num = new Double[3];
+    Double resultat;
+    TextView num1, num2;
+    boolean suma, resta, mult, div, tan, sin, cos = false;
 
     Boolean op;
 
@@ -20,11 +21,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        resultat =findViewById(R.id.resultat);
-        resultat.setText("Hola!");
+        num1 =findViewById(R.id.num1);
+        num1.setText("");
+        num2 =findViewById(R.id.num2);
+        num2.setText("");
 
-        b0 = findViewById(R.id.b0);
-        //b0 = (Button)findViewById(R.id.b0);
+        b0 = (Button) findViewById(R.id.b0);
         b0.setOnClickListener(this);
         b1 = findViewById(R.id.b1);
         b1.setOnClickListener(this);
@@ -56,146 +58,135 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bclear.setOnClickListener(this);
         big = findViewById(R.id.big);
         big.setOnClickListener(this);
+        btan = findViewById(R.id.btan);
+        btan.setOnClickListener(this);
+        bsin = findViewById(R.id.bsin);
+        bsin.setOnClickListener(this);
+        bcos = findViewById(R.id.bcos);
+        bcos.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        TextView resultat =(TextView) findViewById(R.id.resultat);
         int btn = v.getId();
-        int res=0;
+        String text = num1.getText().toString();
         try{
             switch (btn){
                 case R.id.b0:
-                    resultat.setText("0");
-                    if (op1==-1)
-                        op1=0;
-                    else op2=0;
+                    num1.setText(text+"0");
                     break;
                 case R.id.b1:
-                    resultat.setText("1");
-                    if (op1==-1)
-                        op1=1;
-                    else op2=1;
+                    num1.setText(text+"1");
                     break;
                 case R.id.b2:
-                    resultat.setText("2");
-                    if (op1==-1)
-                        op1=2;
-                    else op2=2;
+                    num1.setText(text+"2");
                     break;
                 case R.id.b3:
-                    resultat.setText("3");
-                    if (op1==-1)
-                        op1=3;
-                    else op2=3;
+                    num1.setText(text+"3");
                     break;
                 case R.id.b4:
-                    resultat.setText("4");
-                    if (op1==-1)
-                        op1=4;
-                    else op2=4;
+                    num1.setText(text+"4");
                     break;
                 case R.id.b5:
-                    resultat.setText("5");
-                    if (op1==-1)
-                        op1=5;
-                    else op2=5;
+                    num1.setText(text+"5");
                     break;
                 case R.id.b6:
-                    resultat.setText("6");
-                    if (op1==-1)
-                        op1=6;
-                    else op2=6;
+                    num1.setText(text+"6");
                     break;
                 case R.id.b7:
-                    resultat.setText("7");
-                    if (op1==-1)
-                        op1=7;
-                    else op2=7;
+                    num1.setText(text+"7");
                     break;
                 case R.id.b8:
-                    resultat.setText("8");
-                    if (op1==-1)
-                        op1=8;
-                    else op2=8;
+                    num1.setText(text+"8");
                     break;
                 case R.id.b9:
-                    resultat.setText("9");
-                    if (op1==-1)
-                        op1=9;
-                    else op2=9;
+                    num1.setText(text+"9");
                     break;
                 case R.id.bsuma:
-                    resultat.setText("+");
                     suma=true;
+                    num[0]=Double.parseDouble(text);
+                    num2.setText(String.valueOf(text+"+"));
+                    num1.setText("");
+
                     break;
                 case R.id.bresta:
-                    resultat.setText("-");
                     resta=true;
+                    num[0]=Double.parseDouble(text);
+                    num2.setText(String.valueOf(text+"-"));
+                    num1.setText("");
+
                     break;
                 case R.id.bmult:
-                    resultat.setText("*");
                     mult=true;
+                    num[0]=Double.parseDouble(text);
+                    num2.setText(String.valueOf(text+"x"));
+                    num1.setText("");
+
                     break;
                 case R.id.bdiv:
-                    resultat.setText("/");
                     div=true;
+                    num[0]=Double.parseDouble(text);
+                    num2.setText(String.valueOf(text+"/"));
+                    num1.setText("");
+
+                    break;
+                case R.id.bsin:
+                    num[0]=Double.parseDouble(text);
+                    resultat = Math.sin(num[0]*Math.PI/180);
+                    num1.setText(String.valueOf("sin("+num[0]+") = " + resultat));
+                    break;
+                case R.id.bcos:
+                    num[0]=Double.parseDouble(text);
+                    resultat = Math.cos(num[0]*Math.PI/180);
+                    num1.setText(String.valueOf("cos("+num[0]+") = " + resultat));
+                    break;
+                case R.id.btan:
+                    num[0]=Double.parseDouble(text);
+                    resultat = Math.tan(num[0]*Math.PI/180);
+                    num1.setText(String.valueOf("tan("+num[0]+") = " + resultat));
                     break;
                 case R.id.bclear:
-                    resultat.setText("Hola!");
-                    op1=-1;
-                    op2=-1;
+                    num1.setText("");
+                    num2.setText("");
+
                     break;
                 case R.id.big:
+                    num[1]=Double.parseDouble(text);
                     if(suma== true){
-                        if (op1 != -1 && op2!=-1)
-                        {
-                            double resfinal = op1+op2;
-                            resultat.setText("" + resfinal);
-                        }
-                        else
-                            resultat.setText("Error");
+                        num1.setText(String.valueOf(num[0]));
+                        num2.setText(String.valueOf(num[1]));
+
+                        //num2.setText(String.valueOf(num[0] +  " + " +num[1]));
+                        resultat=num[0]+num[1];
+                        //num1.setText(String.valueOf(resultat));
                         suma=false;
                     }
                     if (resta == true){
-                        if (op1 != -1 && op2!=-1)
-                        {
-                            double resfinal = op1-op2;
-                            resultat.setText(""+resfinal);
-                        }
-                        else
-                            resultat.setText("Error");
+                        num2.setText(String.valueOf(num[0] + " - " + num[1]));
+                        resultat=num[0]-num[1];
+                        num1.setText(String.valueOf(resultat));
                         resta=false;
                     }
                     if (mult == true){
-                        if (op1 != -1 && op2!=-1)
-                        {
-                            double resfinal = op2*op1;
-                            resultat.setText(""+resfinal);
-                        }
-                        else
-                            resultat.setText("Error");
+                        num2.setText(String.valueOf(num[0] + " * " + num[1]));
+                        resultat=num[0]*num[1];
+                        num1.setText(String.valueOf(resultat));
                         mult=false;
                     }
                     if (div == true){
-                        if (op1 != -1 && op2!=-1 && op2!=0)
-                        {
-                            double resfinal = op1/op2;
-                            resultat.setText(""+resfinal);
-                        }
-                        else
-                            resultat.setText("Error");
+                        num2.setText(String.valueOf(num[0] + " / " + num[1]));
+                        resultat=num[0]/num[1];
+                        num1.setText(String.valueOf(resultat));
                         div=false;
                     }
-                    op1=-1;
-                    op2=-2;
+
                     break;
                 default:
                     break;
             }
 
         }catch (Exception e){
-            resultat.setText("ERROR");
+            num1.setText("ERROR");
         }
     }
 }
